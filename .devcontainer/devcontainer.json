@@ -1,14 +1,24 @@
 {
 	"name": "Haskell",
-	"image": "mcr.microsoft.com/devcontainers/base:bookworm",
+	"image": "haskell:latest",
 	"features": {
-		"ghcr.io/devcontainers-extra/features/haskell:2": {}
+		"ghcr.io/devcontainers/features/common-utils:2": {}
 	},
+	"containerEnv": {
+		"BOOTSTRAP_HASKELL_NONINTERACTIVE": "1",
+		"BOOTSTRAP_HASKELL_MINIMAL": "1"
+	},
+	"remoteEnv": {
+		"PATH": "/home/vscode/.ghcup/bin:${containerEnv:PATH}"
+	},
+	"onCreateCommand": "curl -sSf https://get-ghcup.haskell.org | sh && ghcup install hls --set",
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"haskell.haskell"
+				"haskell.haskell",
+				"haskell.language-haskell"
 			]
 		}
-	}
+	},
+	"remoteUser": "vscode"
 }
